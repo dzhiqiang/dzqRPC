@@ -1,11 +1,9 @@
 package com.dzq.register;
 
 import com.dzq.framework.URL;
+import org.omg.PortableInterceptor.INACTIVE;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapRegister {
 
@@ -19,6 +17,13 @@ public class MapRegister {
             urls.add(url);
         }
         REGISTER.put(interfaceName, urls);
+    }
+
+    public static URL random(String interfaceName) {
+
+        List<URL> urls = REGISTER.get(interfaceName);
+
+        return urls.get(new Random().nextInt(urls.size()));
     }
 
 }

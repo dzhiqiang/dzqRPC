@@ -1,6 +1,9 @@
 package com.dzq.provide;
 
 import com.dzq.framework.URL;
+import com.dzq.protocol.HttpProtocol;
+import com.dzq.protocol.Protocol;
+import com.dzq.protocol.ProtocolFactory;
 import com.dzq.protocol.http.HttpServer;
 import com.dzq.provide.api.HelloService;
 import com.dzq.provide.impl.HelloServiceImpl;
@@ -14,9 +17,8 @@ public class Provide {
         URL url = new URL("localhost", 8080);
         MapRegister.regist(HelloService.class.getName(), url);
         LocalInterfaceMap.put(HelloService.class.getName(), HelloServiceImpl.class);
-        //暴露服务
-        HttpServer httpServer = new HttpServer();
-        httpServer.start("localhost", 8080);
+        Protocol protocol = ProtocolFactory.getProtocol();
+        protocol.start(url);
     }
 
 }

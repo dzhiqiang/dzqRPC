@@ -1,15 +1,13 @@
 package com.dzq.framework;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 public class URL {
 
     private String hostname;
-    private int prot;
+    private int port;
 
-    public URL(String hostname, int prot) {
+    public URL(String hostname, int port) {
         this.hostname = hostname;
-        this.prot = prot;
+        this.port = port;
     }
 
     public String getHostname() {
@@ -20,11 +18,11 @@ public class URL {
         this.hostname = hostname;
     }
 
-    public int getProt() {
-        return prot;
+    public int getPort() {
+        return port;
     }
 
-    public void setProt(int prot) {
-        this.prot = prot;
+    public void setPort(int port) {
+        this.port = port;
     }
 }

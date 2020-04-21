@@ -1,7 +1,10 @@
 package com.dzq.framework;
 
+import com.dzq.protocol.HttpProtocol;
+import com.dzq.protocol.Protocol;
+import com.dzq.protocol.ProtocolFactory;
 import com.dzq.protocol.http.HttpClient;
-import com.dzq.provide.api.HelloService;
+import com.dzq.register.MapRegister;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -13,10 +16,11 @@ public class ProxyFactory {
 
         return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class[]{interfaceClass}, new InvocationHandler() {
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                HttpClient httpClient = new HttpClient();
+
                 Invocation invocation = new Invocation(interfaceClass.getName(), method.getName(), method.getParameterTypes(), args);
-                String result = httpClient.send("localhost", 8080, invocation);
-                return result;
+                URL url = MapRegister.random(interfaceClass.getName());
+                Protocol protocol = ProtocolFactory.getProtocol();
+                return protocol.send(url, invocation);
             }
         });
     }
